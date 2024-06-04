@@ -1,19 +1,13 @@
-import {
-  Form,
-  redirect,
-  useActionData,
-  useFetcher,
-  useNavigation,
-} from "react-router-dom";
+import { Form, redirect, useActionData, useNavigation } from "react-router-dom";
 import { createOrder } from "../../services/apiRestaurant";
 import Button from "../../components/Button";
 import EmptyCart from "../cart/EmptyCart";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { clearCart, getCart, getTotalPrice } from "../cart/cartSlice";
 import { formatCurrency } from "../../utils/helpers";
 import store from "../../../src/store";
 import { useState } from "react";
-// import { fetchAddress } from "../user/userSlice";
+import { fetchAddress } from "../user/userSlice";
 
 // https://uibakery.io/regex-library/phone-number
 const isValidPhone = (str) =>
@@ -24,12 +18,13 @@ const isValidPhone = (str) =>
 function CreateOrder() {
   const cart = useSelector(getCart);
   const navigation = useNavigation();
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const errors = useActionData();
   const isSumbmitting = navigation.state === "submitting";
   const [isPriority, setPriority] = useState(false);
 
   const userName = useSelector((state) => state.user.name);
+  const address = useSelector((state) => state.user.address);
 
   const totalCartPrice = useSelector(getTotalPrice);
 
@@ -68,9 +63,23 @@ function CreateOrder() {
         <div className="mb-5 flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
           <label>Address</label>
           <div className="relative z-0 w-full sm:w-3/4">
-            <input type="text" name="address" required className="input" />
+            <input
+              type="text"
+              name="address"
+              defaultValue={address}
+              required
+              className="input"
+            />
             <div className="absolute bottom-1/2 right-2 z-0 translate-y-1/2">
-              <Button type="small">get position</Button>
+              <Button
+                type="small"
+                onClick={(e) => {
+                  e.preventDefault();
+                  dispatch(fetchAddress());
+                }}
+              >
+                get position
+              </Button>
             </div>
           </div>
         </div>
@@ -106,7 +115,6 @@ function CreateOrder() {
 export async function action({ request }) {
   const formData = await request.formData();
   const data = Object.fromEntries(formData);
-  console.log(data);
   const order = {
     ...data,
     priority: data.priority === "true",
@@ -114,7 +122,6 @@ export async function action({ request }) {
       return { ...item, pizzaId: item.id };
     }),
   };
-  console.log(order);
 
   const errors = {};
   if (!isValidPhone(order.phone)) {
