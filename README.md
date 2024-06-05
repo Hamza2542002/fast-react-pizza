@@ -6,7 +6,9 @@
 
 in this Project we made a small delivery pizza app
 
-1.[Installation](#installation) 2.[Run](#usage) 3.[Images](#Images)
+1.[Installation](#installation) 
+2.[Run](#usage) 
+3.[Images](#Images)
 
 ## Inistallation
 
