@@ -40,12 +40,12 @@ in this Project we made a small delivery pizza app
 ## Images
 
 1. **Home Page**
-   ![Screenshot](public/assets/home.png)
+   <img src='public/assets/home.png' />
 2. **Menu Page**
-   ![Screenshot](public/assets/menu.png)
+   <img src='public/assets/menu.png' />
 3. **Cart Page**
-   ![Screenshot](public/assets/cart.png)
+   <img src='public/assets/cart.png' />
 4. **info Page**
-   ![Screenshot](public/assets/info.png)
+   <img src='public/assets/info.png' />
 5. **Order Page**
-   ![Screenshot](public/assets/order.png)
+   <img src='public/assets/order.png' />
