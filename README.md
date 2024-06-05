@@ -40,7 +40,7 @@ in this Project we made a small delivery pizza app
 ## Images
 
 1. **Home Page**
-   <img src='/public/assets/home.png' />
+   <img src='./public/assets/home.png' />
 2. **Menu Page**
    <img src='/public/assets/menu.png' />
 3. **Cart Page**
